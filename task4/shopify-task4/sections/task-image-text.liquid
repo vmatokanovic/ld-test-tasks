@@ -1,0 +1,227 @@
+{% schema %}
+{
+  "name": "Image + Text Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "Handcrafted and Responsibly Sourced"
+    },
+    {
+      "type": "textarea",
+      "id": "content_text",
+      "label": "Content Text",
+      "default": "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Learn more"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Section Image",
+      "info": ".png recommended format"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Image + Text",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="section">
+  {% if section.settings.image != blank %}
+    <img class="section__img" src="{{ section.settings.image | image_url }}" 
+    >
+{% else %}
+    <img class="section__img" src="{{ "1440.png" | asset_url }}" 
+    >
+{% endif %}
+  
+  <div class="section__container">
+    <h3 class="section__heading">{{ section.settings.heading_text }}</h3>
+    <p class="section__content">{{ section.settings.content_text }}</p>
+    <button class="section__button">{{ section.settings.button_text }}</button>
+  </div>
+</section>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+  
+  html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 300;
+    color: #000;
+    line-height: 1.9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e3cfcf;
+  }
+  
+  .hidden {
+    opacity: 0;
+    filter: blur(20px);
+  }
+  
+  /* GENERAL ELEMENTS */
+  .section {
+    margin-block: 200vh;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    transition: all 0.7s ease-in;
+  }
+  
+  .section__img {
+    width: 100%;
+  }
+  
+  .section__container {
+    max-width: 512px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    align-items: center;
+  }
+  
+  .section__heading {
+    font-size: 32px;
+    font-weight: 275;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 41.6px;
+  }
+  
+  .section__content {
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    line-height: 23.4px;
+    max-height: 500px;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .section__content--hidden {
+    opacity: 0;
+    filter: blur(20px);
+    overflow: hidden;
+    max-height: 0px;
+  }
+  
+  .section__button {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 8px;
+    padding: 17px 49px;
+    border: 1px solid #000000;
+    text-align: center;
+    background-color: transparent;
+    transition: background-color 200ms;
+  }
+  
+  .section__button:hover {
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 200ms;
+  }
+  
+  @media (max-width: 1040px) {
+    .section {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .section__container {
+      max-width: 100%;
+      padding: 62.5px 16px 62.5px 16px;
+      gap: 16px;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    .section {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .section__container {
+      padding: 62.5px 16px 62.5px 16px;
+      gap: 16px;
+    }
+  
+    .section__heading {
+      font-size: 24px;
+      line-height: 31.2px;
+    }
+  
+    .section__content {
+      font-size: 16px;
+      line-height: 20.8px;
+    }
+  
+    .section__button {
+      font-size: 12px;
+      padding: 16px 24px;
+    }
+  }  
+</style>
+
+<script>
+    'use strict';
+
+    const button = document.querySelector('.section__button');
+    const content = document.querySelector('.section__content');
+    const section = document.querySelector('.section');
+
+    const toggleText = function (element) {
+      element.classList.contains('section__content--hidden')
+        ? element.classList.remove('section__content--hidden')
+        : element.classList.add('section__content--hidden');
+    };
+
+    button.addEventListener('click', toggleText.bind(this, content));
+
+     /* Intersection observer - reveal section functionality */
+     const options = {
+      root: null,
+      threshold: 0.1,
+      rootMargin: '-100px',
+    };
+
+    function sectionCallbackFunction(entries) {
+      const [entry] = entries;
+      entry.isIntersecting
+        ? section.classList.remove('hidden')
+        : section.classList.add('hidden');
+    }
+
+    const sectionObserver = new IntersectionObserver(
+      sectionCallbackFunction,
+      options
+    );
+
+    sectionObserver.observe(section);
+</script>

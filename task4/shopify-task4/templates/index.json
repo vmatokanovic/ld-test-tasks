@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "task-image-text": {
+      "type": "task-image-text",
+      "settings": {}
+    }
+  },
+  "order": ["task-image-text"]
+}

@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 300;
+  color: #000000;
+  line-height: 1.9;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* GENERAL ELEMENTS */
+
+.wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.carousel {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-color: #f3ede5;
+}
+
+.carousel__wrapper.swiper {
+  margin-block: 96px;
+  margin-left: 64px;
+  position: relative;
+  height: auto;
+}
+
+.carousel__inner-wrapper.swiper-wrapper {
+  display: flex;
+  align-items: center;
+  height: auto;
+}
+
+.carousel img {
+  margin: 0 auto;
+  width: 468px;
+  height: 585px;
+  object-fit: cover;
+}
+
+.carousel__item.swiper-slide {
+  width: 468px;
+  flex-shrink: 0;
+}
+
+.carousel__button img {
+  width: 32px;
+  height: 32px;
+}
+
+.prevEl,
+.nextEl {
+  cursor: pointer;
+}
+
+.prevEl {
+  position: absolute;
+  top: 260px;
+  left: 2px;
+  z-index: 10;
+}
+
+.nextEl {
+  position: absolute;
+  top: 260px;
+  right: 34px;
+  z-index: 10;
+}
+
+.prevEl.swiper-button-disabled,
+.nextEl.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: auto;
+  pointer-events: none;
+}
+
+.toggle-button {
+  background-color: #209e3f;
+  border: none;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 24px 12px;
+  margin-top: 24px;
+  border-radius: 10px;
+}
+
+.swiper-active {
+  background-color: #830909;
+}
+
+.toggle-button:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 375px) {
+  .carousel img {
+    width: 343px;
+    height: 428px;
+  }
+
+  .carousel__item.swiper-slide {
+    max-width: 343px;
+  }
+
+  .carousel__wrapper.swiper {
+    margin-block: 64px;
+    margin-left: 16px;
+  }
+
+  .carousel__button img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .prevEl {
+    display: none;
+  }
+
+  .nextEl {
+    position: absolute;
+    top: 198px;
+    right: 24px;
+    z-index: 10;
+  }
+}
